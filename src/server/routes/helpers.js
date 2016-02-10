@@ -1,5 +1,5 @@
 function ensureAuthenticated(req, res, next) {
-  if (req.session.id !== null && req.session.id !== undefined) {
+  if (req.session.loggedIn) {
     return next();
   }
   else {

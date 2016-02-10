@@ -16,7 +16,8 @@ router.post('/signup', function(req, res, next) {
   };
   User.create(newUser, function(err, user) {
     if (user) {
-      req.session.id = user._id;
+      req.session.loggedIn = true;
+      req.session.email = user.email;
       res.redirect('/');
     } else {
       console.log(err);
@@ -35,7 +36,8 @@ router.post('/login', function(req, res, next) {
   };
   User.authenticate(user, function(err, user) {
     if (!err && user !== null) {
-      req.session.id = user._id;
+      req.session.loggedIn = true;
+      req.session.email = user.email;
       res.redirect('/');
     } else {
       console.log(err);
@@ -44,7 +46,8 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', helpers.ensureAuthenticated, function(req, res, next) {
-  req.session.id = null;
+  req.session.loggedIn = false;
+  req.session.email = null;
   res.redirect('/');
 });
 

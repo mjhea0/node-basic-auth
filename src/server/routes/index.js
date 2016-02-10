@@ -5,7 +5,10 @@ var helpers = require('./helpers');
 
 
 router.get('/', helpers.ensureAuthenticated, function(req, res, next) {
-  res.render('index', {userID: req.session.id});
+  res.render('index', {
+    loggedIn: req.session.loggedIn,
+    email: req.session.email
+  });
 });
 
 
